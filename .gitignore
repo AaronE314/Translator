@@ -2,3 +2,5 @@
 training_checkpoints/
 
 spa.txt
+
+__pycache__/
