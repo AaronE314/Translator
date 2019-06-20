@@ -28,8 +28,8 @@ from Encoder import Encoder
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 #####################################################################################################
-# Tutorial from                                                                                     #
-# https://www.tensorflow.org/beta/tutorials/text/nmt_with_attention                                 #
+# Tutorial from
+# https://www.tensorflow.org/beta/tutorials/text/nmt_with_attention
 #####################################################################################################
 
 #####################################################################################################
@@ -274,7 +274,7 @@ units = 1024
 BATCH_SIZE = 64
 EPOCHS = 10
 
-training = ast.literal_eval(sys.argv) if len(sys.argv) > 1 and (
+training = ast.literal_eval(sys.argv[1]) if len(sys.argv) > 1 and (
     sys.argv[1] == 'True' or sys.argv[1] == 'False') else False
 verbose = False
 
@@ -324,7 +324,6 @@ decoder = Decoder(vocab_tar_size, embedding_dim, units, BATCH_SIZE)
 optimizer = tf.keras.optimizers.Adam()
 
 # Set up Checkpoints
-
 checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
 checkpoint = tf.train.Checkpoint(optimizer=optimizer,
                                  encoder=encoder,
@@ -341,6 +340,10 @@ if checkpoint_manager.latest_checkpoint:
 if training:
     train()
 
+# save = input("Save Model? [Y/n] ")
+
+# if re.match(r'[Yy]|[Yy][Ee][Ss]', save):
+#     tf.saved_model.save(, './saved_model')
 sentence = input("Please enter a spanish sentence: ")
 
 print(translate(sentence))
